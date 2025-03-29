@@ -80,7 +80,7 @@ export default function Home() {
 
   const onClick = () => {
     setIsError(false)
-    const currentUrl = window.location.host
+    const currentUrl = window.location.hostname
     fetch(`http://${currentUrl}:3000/api/counter`, {
       method: 'PUT',
     })
