@@ -47,13 +47,6 @@ app.use(async (req, res, next) => {
 async function initializeDatabase() {
   const client = await pool.connect()
   try {
-    // Créer la table si elle n'existe pas
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS count (
-        id SERIAL PRIMARY KEY,
-        count INTEGER DEFAULT 0
-      );
-    `)
     
     // Vérifier si une ligne avec id=1 existe, la créer si non
     const result = await client.query('SELECT * FROM count WHERE id = 1')

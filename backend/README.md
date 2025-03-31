@@ -8,7 +8,6 @@ Le backend est une API REST simple qui:
 1. Se connecte à une base de données PostgreSQL
 2. Expose des endpoints pour lire et incrémenter un compteur
 3. Vérifie que la version de PostgreSQL est bien 14.x
-4. Initialise la base de données au démarrage si nécessaire
 
 ## Technologies utilisées
 
@@ -61,7 +60,15 @@ DATABASE_NAME=database_name
 
 3. Assurez-vous que PostgreSQL est installé et en cours d'exécution
 
-4. Démarrez le serveur:
+4. Executez la création de la base de données:
+```sql
+CREATE TABLE IF NOT EXISTS count (
+        id SERIAL PRIMARY KEY,
+        count INTEGER DEFAULT 0
+)
+```
+
+5. Démarrez le serveur:
    ```bash
    npm start
    ```
