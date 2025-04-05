@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">=18.x"
+  },
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
