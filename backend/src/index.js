@@ -25,8 +25,6 @@ const pool = new Pool({
 // Middleware pour vérifier la version de PostgreSQL
 app.use(async (req, res, next) => {
   try {
-    console.log('Waiting 10 seconds to mock a long startup time...')
-    await new Promise(resolve => setTimeout(resolve, 10000))
     const client = await pool.connect()
     try {
       const result = await client.query('SHOW server_version;')
@@ -63,11 +61,6 @@ async function initializeDatabase() {
   }
 }
 
-// Initialiser la base de données au démarrage de l'application
-initializeDatabase().catch(err => {
-  console.error('Failed to initialize database, shutting down:', err)
-  process.exit(1)
-})
 
 // Endpoint GET pour retourner le compteur actuel
 app.get('/api/counter', async (req, res) => {
@@ -103,6 +96,9 @@ app.put('/api/counter', async (req, res) => {
   }
 })
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  console.log('Waiting 10 seconds to mock a long startup time...')
+  await new Promise(resolve => setTimeout(resolve, 10000))
+  await initializeDatabase()
   console.log(`Example app listening on port ${port}`)
 })
